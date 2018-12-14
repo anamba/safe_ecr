@@ -17,6 +17,10 @@ class Object
   def html_safe?
     false
   end
+
+  def to_html_safe_s(io)
+    html_safe? ? to_s(io) : SafeECR.escape(self).to_s(io)
+  end
 end
 
 class Numeric

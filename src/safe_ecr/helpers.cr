@@ -14,6 +14,8 @@ module SafeECR
   end
 
   def self.escape(obj)
-    HTML.escape(obj)
+    if (o = obj)
+      HTML.escape(o.to_s)
+    end
   end
 end

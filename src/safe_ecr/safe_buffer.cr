@@ -13,6 +13,10 @@ module SafeECR
       @string
     end
 
+    def to_s(io)
+      @string.to_s(io)
+    end
+
     forward_missing_to @string
   end
 end

@@ -39,8 +39,8 @@ module SafeECR
 
           str << '('
           append_loc(str, filename, line_number, column_number)
-          str << "(#{string}.html_safe? ? #{string}.to_s : SafeECR.escape(#{string}))"
-          str << ").to_s "
+          str << string
+          str << ").to_html_safe_s "
           str << buffer_name
           str << '\n'
         when :CONTROL
