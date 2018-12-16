@@ -9,7 +9,7 @@ module SafeECR
     end
   end
 
-  def self.escape(sb : SafeBuffer)
+  def self.escape(sb : HTMLSafeString)
     HTML.escape(sb.to_s)
   end
 

@@ -6,6 +6,10 @@
 
 Overrides default ECR module with one that does HTML escaping by default. Inspired by ActiveSupport's output safety.
 
+HTML safe strings are wrapped by a new class, `SafeECR::HTMLSafeString`. When `String`s and `HTMLSafeString`s are combined via `+`, the result is an `HTMLSafeString` (with any HTML in the original `String` escaped).
+
+Considering adding a `HTMLSafeString::Builder` to support `HTMLSafeString.build` (a la `String.build`).
+
 ## Installation
 
 1. Add the dependency to your `shard.yml`:
