@@ -42,3 +42,14 @@ struct Nil
     true
   end
 end
+
+module Enumerable
+  def safe_join(separator = "") : SafeECR::HTMLSafeString
+    String.build do |io|
+      each_with_index do |elem, i|
+        io << separator.to_html_safe_s if i > 0
+        io << elem.to_html_safe_s
+      end
+    end.html_safe
+  end
+end

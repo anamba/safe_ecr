@@ -6,9 +6,23 @@
 
 Overrides default ECR module with one that does HTML escaping by default. Inspired by ActiveSupport's output safety.
 
-HTML safe strings are wrapped by a new class, `SafeECR::HTMLSafeString`. When `String`s and `HTMLSafeString`s are combined via `+`, the result is an `HTMLSafeString` (with any HTML in the original `String` escaped).
+A few brief examples:
 
-Considering adding a `HTMLSafeString::Builder` to support `HTMLSafeString.build` (a la `String.build`).
+```erb
+<%= "Hello,<br> world!" %>                 # => Hello,&lt;br&gt; world!
+<%=raw "Hello,<br> world!" %>              # => Hello,<br> world!
+<%= "Hello,<br> world!".html_safe %>       # => Hello,<br> world!
+<%= "Hello," + "<br> world!".html_safe %>  # => Hello,<br> world!
+<%= "Hello,<br>" + " world!".html_safe %>  # => Hello,&lt;br&gt; world!
+```
+
+ECR will only output HTML safe strings, represented by a new class, `SafeECR::HTMLSafeString`. `HTMLSafeString`s can be created implicitly (the first and last lines of the example above) or explicitly (the second, third and fourth lines, plus the "` world!`" part of the last line).
+
+Note that as shown in the last line, when `String`s and `HTMLSafeString`s are combined via `+`, the result is an `HTMLSafeString` (with any HTML in the original `String` escaped). If you *don't* want this behavior, just call `#to_s` on the `HTMLSafeString` first to convert it to a regular string before combining.
+
+## Limitations
+
+Crystal's `String` class cannot be inherited from, nor can it have additional properties added to it, which is why `HTMLSafeString` is an entirely unrelated class. As a result, using this shard will likely require a *lot* of code changes in existing HTML helper methods. (A companion shard to patch JasperHelpers for use with this shard is coming soon.)
 
 ## Installation
 
@@ -42,6 +56,16 @@ Hello, world!
 <%= "<em>You can manually mark strings as HTML-safe as needed...</em>".html_safe %>
 <%= raw "<strong>Or use the raw helper, which does the same thing.</strong>" %>
 ```
+
+## Amber-specific changes
+
+In your layout, add the `raw` helper:
+
+```erb
+<%= raw content %>
+```
+
+Anywhere you call `render` directly should also now be `raw render`. (I considered overriding `render` to return an `HTMLSafeString`, but decided against it for now.)
 
 ## Contributing
 

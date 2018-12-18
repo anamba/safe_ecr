@@ -8,6 +8,6 @@ describe SafeECR do
 
     io = IO::Memory.new
     ECR.embed __DIR__ + "/example.ecr", io
-    io.to_s.strip.should eq "&lt;strong&gt;Dangerous HTML!&lt;/strong&gt;\n<em>Safe HTML!</em>\n123"
+    io.to_s.strip.should eq "<div>\n&lt;strong&gt;Dangerous HTML!&lt;/strong&gt;\n<em>Safe HTML!</em>\n123\n</div>"
   end
 end
