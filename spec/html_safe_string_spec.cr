@@ -1,24 +1,25 @@
 require "./spec_helper"
 
-describe SafeECR::HTMLSafeString do
+describe HTMLSafeString do
   it "wraps a string that is safe to output directly, and can be compared" do
     obj = "asdf".html_safe
-    obj.should be_a SafeECR::HTMLSafeString
+    obj.should be_a String
     obj.to_s.should eq "asdf"
     obj.should eq "asdf"
-    obj.should eq SafeECR::HTMLSafeString.new("asdf")
+    # obj.should eq String.new("asdf")
   end
 
   it "can be combined with other safe strings" do
     ("asdf".html_safe + "fdsa".html_safe).to_html_safe_s.should eq "asdffdsa"
-    ("asdf".html_safe + "fd<br>sa".html_safe).to_html_safe_s.should eq "asdffd<br>sa"
+    ("asdf".html_safe + "fd<br>sa1".html_safe).to_html_safe_s.should eq "asdffd<br>sa1"
   end
 
   it "can be combined with non-safe strings after escaping" do
+    # don't forget, crystal reuses literal strings if contents are identical
     ("asdf".html_safe + "fdsa").to_html_safe_s.should eq "asdffdsa"
     ("fdsa" + "asdf".html_safe).to_html_safe_s.should eq "fdsaasdf"
-    ("asdf".html_safe + "fd<br>sa").to_html_safe_s.should eq "asdffd&lt;br&gt;sa"
-    ("fd<br>sa" + "asdf".html_safe).to_html_safe_s.should eq "fd&lt;br&gt;saasdf"
+    ("asdf".html_safe + "fd<br>sa2").to_html_safe_s.should eq "asdffd&lt;br&gt;sa2"
+    ("fd<br>sa3" + "asdf".html_safe).to_html_safe_s.should eq "fd&lt;br&gt;sa3asdf"
   end
 
   it "adds #safe_join to Enumerable" do
