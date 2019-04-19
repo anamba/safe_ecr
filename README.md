@@ -20,6 +20,12 @@ ECR will only output HTML safe strings, represented by a new class, `SafeECR::HT
 
 Note that as shown in the last line, when `String`s and `HTMLSafeString`s are combined via `+`, the result is an `HTMLSafeString` (with any HTML in the original `String` escaped). If you *don't* want this behavior, just call `#to_s` on the `HTMLSafeString` first to convert it to a regular string before combining.
 
+## Versioning
+
+SafeECR is closely tied to ECR, so starting with 0.28.0, the SafeECR version will indicate the version of Crystal it works with.
+
+For Crystal 0.27.0, use v0.2.0.
+
 ## Limitations
 
 Crystal's `String` class cannot be inherited from, nor can it have additional properties added to it, which is why `HTMLSafeString` is an entirely unrelated class. As a result, using this shard will likely require a *lot* of code changes in existing HTML helper methods. (A companion shard to patch JasperHelpers for use with this shard is coming soon.)
@@ -65,7 +71,7 @@ In your layout, add the `raw` helper:
 <%= raw content %>
 ```
 
-Anywhere you call `render` directly should also now be `raw render`. (I considered overriding `render` to return an `HTMLSafeString`, but decided against it for now.)
+Likewise, anytime you call `render` directly in a template file, it should now be `raw render`. (I considered overriding `render` to return an `HTMLSafeString`, but decided against it for now.)
 
 ## Contributing
 
