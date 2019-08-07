@@ -26,5 +26,7 @@ describe SafeECR::HTMLSafeString do
     ["fd<br>sa".html_safe, "asdf"].safe_join(" ").to_html_safe_s.should eq "fd<br>sa asdf"
     ["fd<br>sa".html_safe, "asdf"].safe_join("<br>").to_html_safe_s.should eq "fd<br>sa&lt;br&gt;asdf"
     ["fd<br>sa".html_safe, "asdf"].safe_join("<br>".html_safe).to_html_safe_s.should eq "fd<br>sa<br>asdf"
+    ["fd<br>sa", "asdf"].safe_join("<br>").to_html_safe_s.should eq "fd&lt;br&gt;sa&lt;br&gt;asdf"
+    ["fd<br>sa".html_safe, "asdf".html_safe].safe_join("<br>".html_safe).to_html_safe_s.should eq "fd<br>sa<br>asdf"
   end
 end
