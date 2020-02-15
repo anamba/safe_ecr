@@ -1,12 +1,14 @@
 require "./spec_helper"
 
 describe SafeECR::HTMLSafeString do
-  it "wraps a string that is safe to output directly, and can be compared" do
+  it "wraps a string that is safe to output without escaping, and largely acts like a string" do
     obj = "asdf".html_safe
     obj.should be_a SafeECR::HTMLSafeString
     obj.to_s.should eq "asdf"
     obj.should eq "asdf"
     obj.should eq SafeECR::HTMLSafeString.new("asdf")
+    obj.presence.should eq "asdf"
+    "".presence.should be_nil
   end
 
   it "can be combined with other safe strings" do
