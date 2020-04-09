@@ -1,9 +1,9 @@
 name: safe_ecr
-version: 0.28.0
+version: 0.34.0
 
 authors:
   - Aaron Namba <aaron@aaronnamba.com>
 
-crystal: 0.33.0
+crystal: 0.34.0
 
 license: MIT
