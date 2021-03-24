@@ -2,6 +2,10 @@
 
 Arranged in reverse chronological order (latest changes on top).
 
+## v1.0.0 - 2021-03-24
+
+* Crystal 1.0.0 compatibility
+
 ## v0.34.0 - 2020-04-09
 
 * Crystal 0.34.0 compatibility

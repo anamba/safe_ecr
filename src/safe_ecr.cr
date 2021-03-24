@@ -4,7 +4,7 @@ require "./safe_ecr/html_safe_string"
 
 # Inspired by ActiveSupport's output safety features
 module SafeECR
-  VERSION = "0.2.0"
+  VERSION = "1.0.0"
 
   def self.escape(obj)
     obj.html_safe? ? obj : HTML.escape(obj.to_s)
